@@ -23,14 +23,14 @@ Options:
 
 Examples:
 
-    NdjsonConverter.Command.exe --infile C:\NDJSON\Input\test.gz --outfile C:\NDJSON\Output\test.ndjson --inbucket singularityresearch --inkey dev/test.gz
+    NdjsonConverter.Command.exe --infile C:\NDJSON\Input\test.gz --outfile C:\NDJSON\Output\test.ndjson --inbucket singularityresearch --inkey dev/test.gz --outbucket singularityresearch --outkey dev/test.ndjson.gz
 
 Explanation:
 The GZ compressed file is downloaded from Amazon S3 (*inbucket*/*inkey*).
 The downloaded file is decompressed to the local filesystem as *infile* (CSV file.)
 The *infile* is converted from CSV to NDJSON to the local filesystem as *outfile* (NDJSON file.)
-The *outfile* is GZ compressed to the local filesystem as *outfile*.{UTC.Ticks}.gz.
-The *outfile*.{UTC.Ticks}.gz is uploaded to Amazon S3 as *outbucket*/*outkey*.
+The *outfile* is GZ compressed to the local filesystem as *outfile*.gz.
+The *outfile*.gz is uploaded to Amazon S3 as *outbucket*/*outkey*.
 
 Build Requirements:
 
