@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using Amazon;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -35,23 +36,28 @@ var amazonS3Service = host.Services.GetRequiredService<IAmazonS3Service>();
 
 try
 {
+    var inRegionArg = config.GetValue<string>("inregion");
     var inBucketArg = config.GetValue<string>("inbucket");
     var inKeyArg = config.GetValue<string>("inkey");
     var infileArg = config.GetValue<string>("infile");
     var outfileArg = config.GetValue<string>("outfile");
+    var outRegionArg = config.GetValue<string>("outregion");
     var outBucketArg = config.GetValue<string>("outbucket");
     var outKeyArg = config.GetValue<string>("outkey");
     if (string.IsNullOrEmpty(inBucketArg) || string.IsNullOrEmpty(inKeyArg) || string.IsNullOrEmpty(infileArg) 
-        || string.IsNullOrEmpty(outfileArg) || string.IsNullOrEmpty(outBucketArg) || string.IsNullOrEmpty(outKeyArg))
+        || string.IsNullOrEmpty(outfileArg) || string.IsNullOrEmpty(outBucketArg) || string.IsNullOrEmpty(outKeyArg)
+        || string.IsNullOrEmpty(inRegionArg) || string.IsNullOrEmpty(outRegionArg))
     {
         Help();
         return;
     }
 
+    Console.WriteLine($"inregion: {inRegionArg}");
     Console.WriteLine($"inbucket: {inBucketArg}");
     Console.WriteLine($"inkey: {inKeyArg}");
     Console.WriteLine($"infile: {infileArg}");
     Console.WriteLine($"outfile: {outfileArg}");
+    Console.WriteLine($"outregion: {outRegionArg}");
     Console.WriteLine($"outbucket: {outBucketArg}");
     Console.WriteLine($"outkey: {outKeyArg}");
 
@@ -70,7 +76,9 @@ try
             };
             stopWatch.Start();
             Console.WriteLine($"Downloading {inBucketArg}/{inKeyArg}");
-            var success = await amazonS3Service.DownloadAsync(Amazon.RegionEndpoint.USEast1, inBucketArg, inKeyArg, infileArg, cts.Token);
+            var inRegion = RegionEndpoint.GetBySystemName(inRegionArg);
+            var outRegion = RegionEndpoint.GetBySystemName(outRegionArg);
+            var success = await amazonS3Service.DownloadAsync(inRegion, inBucketArg, inKeyArg, infileArg, cts.Token);
             if (success)
             {
                 Console.WriteLine($"Download {inBucketArg}/{inKeyArg} successful");
@@ -100,7 +108,7 @@ try
                 Console.WriteLine($"Compressed to {gzipOutfile} successfully");
                 File.Delete(outfileArg);
                 Console.WriteLine($"Uploading {outBucketArg}/{outKeyArg}");
-                await amazonS3Service.UploadAsync(Amazon.RegionEndpoint.USEast1, outBucketArg, outKeyArg, gzipOutfile, cts.Token);
+                await amazonS3Service.UploadAsync(outRegion, outBucketArg, outKeyArg, gzipOutfile, cts.Token);
                 Console.WriteLine($"Upload {outBucketArg}/{outKeyArg} successful");
                 File.Delete(gzipOutfile);
             }
@@ -125,13 +133,15 @@ void Help()
     Console.WriteLine($"{Environment.NewLine}Usage: {Process.GetCurrentProcess().ProcessName} [options]");
     Console.WriteLine($"{Environment.NewLine}Required Arguments: {Environment.NewLine}    --infile    The input GZ file.");
     Console.WriteLine($"{Environment.NewLine}    --outfile    The output NDJSON file.");
+    Console.WriteLine($"{Environment.NewLine}    --inregion   The input Amazon S3 Region.");
     Console.WriteLine($"{Environment.NewLine}    --inbucket   The input Amazon S3 Bucket.");
     Console.WriteLine($"{Environment.NewLine}    --inkey      The input file key in Amazon S3.");
+    Console.WriteLine($"{Environment.NewLine}    --outregion  The output Amazon S3 Region.");
     Console.WriteLine($"{Environment.NewLine}    --outbucket  The output Amazon S3 Bucket.");
     Console.WriteLine($"{Environment.NewLine}    --outkey     The output file key in Amazon S3.");
     Console.WriteLine();
     Console.WriteLine($"{Environment.NewLine}Examples:");
-    Console.WriteLine($"    ./{Process.GetCurrentProcess().ProcessName} --infile test.gz --outfile test.ndjson -inbucket singularityresearch -inkey dev/test.gz");
+    Console.WriteLine($"    ./{Process.GetCurrentProcess().ProcessName} --infile C:\\NDJSON\\Input\\test.gz --outfile C:\\NDJSON\\Output\\test.ndjson --inregion us-east-1 --inbucket singularityresearch --inkey dev/test.gz --outregion us-east-1 --outbucket singularityresearch --outkey dev/test.ndjson.gz");
     Console.WriteLine();
     Console.WriteLine($"{Environment.NewLine}Explanation:{Environment.NewLine}The GZ compressed file is downloaded from Amazon S3 (*inbucket*/*inkey*).");
     Console.WriteLine("The downloaded file is decompressed to the local filesystem as *infile* (CSV file.)");
