@@ -91,7 +91,7 @@ try
                 Console.WriteLine($"Converted to {outfileArg} successfully");
                 File.Delete(csvOutfile);
                 var gzipOutfile = Path.ChangeExtension(outfileArg, ".gz");
-                Console.WriteLine($"Compressing {infileArg}");
+                Console.WriteLine($"Compressing {outfileArg}");
                 using var jsonReadStream = File.OpenRead(outfileArg);
                 using var gzipWriteStream = File.Open(gzipOutfile, FileMode.Create);
                 await gzipService.CompressFileAsync(jsonReadStream, gzipWriteStream, cts.Token);
