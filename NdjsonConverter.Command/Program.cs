@@ -92,7 +92,7 @@ try
                 Console.WriteLine($"Decompressed to {csvOutfile} successfully");
                 using var csvReadStream = File.OpenRead(csvOutfile);
                 using var jsonWriteStream = File.Open(outfileArg, FileMode.Create);
-                Console.WriteLine($"Converting CSV to JSON for {csvOutfile}");
+                Console.WriteLine($"Converting CSV to NDJSON for {csvOutfile}");
                 await jsonService.ToJsonAsync(csvReadStream, jsonWriteStream, cts.Token);
                 csvReadStream.Close();
                 jsonWriteStream.Close();
