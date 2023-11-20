@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34221.43
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NdjsonConverter.Command", "NdjsonConverter.Command\NdjsonConverter.Command.csproj", "{BD59685F-705D-4689-8EF9-D26EB589660E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82C720AC-115B-495C-B2B9-98EE42F89DAB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82C720AC-115B-495C-B2B9-98EE42F89DAB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82C720AC-115B-495C-B2B9-98EE42F89DAB}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{82C720AC-115B-495C-B2B9-98EE42F89DAB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82C720AC-115B-495C-B2B9-98EE42F89DAB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82C720AC-115B-495C-B2B9-98EE42F89DAB}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{BD59685F-705D-4689-8EF9-D26EB589660E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD59685F-705D-4689-8EF9-D26EB589660E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD59685F-705D-4689-8EF9-D26EB589660E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD59685F-705D-4689-8EF9-D26EB589660E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {73A72B73-EB42-4C1A-BD24-51A5B7797204}
+	EndGlobalSection
+EndGlobal

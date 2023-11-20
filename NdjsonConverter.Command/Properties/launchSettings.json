@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "NdjsonConverter.Command": {
+      "commandName": "Project",
+      "commandLineArgs": " --infile C:\\NDJSON\\Input\\test.gz --outfile C:\\NDJSON\\Output\\test.ndjson --inbucket singularityresearch --inkey dev/test.gz"
+    }
+  }
+}
