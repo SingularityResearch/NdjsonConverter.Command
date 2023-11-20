@@ -48,10 +48,13 @@ try
         return;
     }
 
-    logger.LogInformation("inbucket: {inbucket}", config["inbucket"]);
-    logger.LogInformation("inkey: {inkey}", config["inkey"]);
-    logger.LogInformation("infile: {infile}", config["infile"]);
-    logger.LogInformation("outfile: {outfile}", config["outfile"]);
+    Console.WriteLine($"inbucket: {inBucketArg}");
+    Console.WriteLine($"inkey: {inKeyArg}");
+    Console.WriteLine($"infile: {infileArg}");
+    Console.WriteLine($"outfile: {outfileArg}");
+    Console.WriteLine($"outbucket: {outBucketArg}");
+    Console.WriteLine($"outkey: {outKeyArg}");
+
     var cts = new CancellationTokenSource();
     var stopWatch = new Stopwatch();
     var t = Task.Run(async () =>
