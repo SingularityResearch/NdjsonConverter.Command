@@ -23,7 +23,7 @@ Options:
 
 Examples:
 
-    NdjsonConverter.Command.exe --infile C:\NDJSON\Input\test.gz --outfile C:\NDJSON\Output\test.ndjson --inbucket singularityresearch --inkey dev/test.gz --outbucket singularityresearch --outkey dev/test.ndjson.gz
+    NdjsonConverter.Command.exe --infile C:\NDJSON\Input\test.gz --outfile C:\NDJSON\Output\test.ndjson --inregion us-east-1 --inbucket singularityresearch --inkey dev/test.gz --outregion us-east-1 --outbucket singularityresearch --outkey dev/test.ndjson.gz
 
 Explanation:
 The GZ compressed file is downloaded from Amazon S3 (*inbucket*/*inkey*).
